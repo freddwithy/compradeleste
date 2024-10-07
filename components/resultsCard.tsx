@@ -1,4 +1,4 @@
-import { Product, Products } from "@/types/types";
+import { Product } from "@/types/types";
 import { Store } from "lucide-react";
 import Image from "next/image";
 
