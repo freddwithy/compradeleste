@@ -24,7 +24,7 @@ const ResultsCard: React.FC<ResultsCardProps> = ({ products }) => {
         </div>
         <div className="space-y-1">
           <h2 className="text-lg font-bold text-zinc-900 ">
-            <a href={products.link}>{products.title}</a>
+            <a target="_blank" href={products.link}>{products.title}</a>
           </h2>
           <p className="text-zinc-500 font-semibold">{products.price}</p>
           {products.description && (
