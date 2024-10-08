@@ -15,8 +15,6 @@ import ResultsCard from "@/components/resultsCard";
 export default function Home() {
   const { loading } = useLoadingStore();
   const { products } = useProductsStore();
-  console.log( products.results);
-  
   return (
     <div className="w-[600px] mx-auto h-dvh flex items-center justify-center flex-col gap-y-4">
       <Card className="w-full">

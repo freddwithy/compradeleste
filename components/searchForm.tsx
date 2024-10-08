@@ -50,7 +50,11 @@ const SearchForm = () => {
 
         const results = await resAI.json();
 
-        setProducts(results);
+        if(results) {
+          setProducts(results);
+        } else {
+          setProducts(products);
+        }
       }
 
       setLoading(false);

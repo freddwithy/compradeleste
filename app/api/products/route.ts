@@ -11,20 +11,12 @@ export async function POST(req: Request) {
     }
 
     const browser = await chromium.launch();
-    const nisseiBr = await browser.newPage();
-    const mobileZoneBr = await browser.newPage();
-    const cellShopBr = await browser.newPage();
-    await nisseiBr.goto(
+    const page = await browser.newPage();
+    await page.goto(
       `https://nissei.com/py/catalogsearch/result/?q=${search}`,
     );
-    await mobileZoneBr.goto(
-      `https://www.mobilezone.com.py/query/%7B%22query%22%3A%22${search}%22%7D`,
-    );
-    await cellShopBr.goto(
-      `https://cellshop.com.py/catalogsearch/result/?q=${search}`,
-    );
 
-    const productsFromNissei = await nisseiBr.$$eval(
+    const productsFromNissei = await page.$$eval(
       ".product-item-info",
       (el) =>
         el.map((product) => {
@@ -73,7 +65,11 @@ export async function POST(req: Request) {
         }),
     );
 
-    const productsFromMobileZone = await mobileZoneBr.$$eval(
+    await page.goto(
+      `https://www.mobilezone.com.py/query/%7B%22query%22%3A%22${search}%22%7D`,
+    );
+
+    const productsFromMobileZone = await page.$$eval(
       ".MuiBox-root .css-nodl6l",
       (el) =>
         el.map((product) => {
@@ -110,7 +106,12 @@ export async function POST(req: Request) {
         }),
     );
 
-    const productsFromCellShop = await cellShopBr.$$eval(
+    
+    await page.goto(
+      `https://cellshop.com.py/catalogsearch/result/?q=${search}`,
+    );
+
+    const productsFromCellShop = await page.$$eval(
       ".product-item-info",
       (el) =>
         el.map((product) => {
@@ -167,9 +168,7 @@ export async function POST(req: Request) {
       (product) => product !== undefined,
     );
 
-    await cellShopBr.close();
-    await nisseiBr.close();
-    await mobileZoneBr.close();
+    await page.close();
     await browser.close();
 
     return new Response(JSON.stringify({ nissei, mobileZone, cellShop }), {

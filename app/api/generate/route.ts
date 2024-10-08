@@ -53,7 +53,7 @@ export async function POST(req: Request) {
     }; 
     // @ts-expect-error: GoogleGenerativeAI class is not properly typed, or process.env.GEMINI_API_KEY is not properly defined
     const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro", generationConfig });
+    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash", generationConfig });
 
     
 
